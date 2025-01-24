@@ -1,13 +1,19 @@
 extends CharacterBody3D
 
+signal bubble_destroy()
+
 const HORIZONTAL_SPEED = 2
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	else:
-		velocity = -get_gravity()
+		velocity = -get_gravity() * 0.5
 		velocity.x = (randf() * 2 - 1) * HORIZONTAL_SPEED
 		velocity.z = (randf() * 2 - 1) * HORIZONTAL_SPEED
+
+	if position.y < 1:
+		bubble_destroy.emit()
+		queue_free()
 
 	move_and_slide()

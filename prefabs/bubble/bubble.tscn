@@ -7,6 +7,7 @@
 [sub_resource type="SphereMesh" id="SphereMesh_k03oe"]
 
 [node name="Bubble" type="CharacterBody3D"]
+platform_on_leave = 2
 script = ExtResource("1_lgwx7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

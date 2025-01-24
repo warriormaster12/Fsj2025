@@ -1,0 +1,136 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkpsad3dyav80"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_onbhf"]
+[ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_s7dc4"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="2_fq0ei"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f6xx8"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_qlu05"]
+sky_material = SubResource("ProceduralSkyMaterial_f6xx8")
+
+[sub_resource type="Environment" id="Environment_mnawe"]
+background_mode = 2
+sky = SubResource("Sky_qlu05")
+tonemap_mode = 2
+
+[node name="ActualLevel" type="Node" node_paths=PackedStringArray("main_menu", "game")]
+script = ExtResource("1_s7dc4")
+main_menu = NodePath("MainMenu")
+game = NodePath("Game")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mnawe")
+
+[node name="Game" type="Node" parent="."]
+script = ExtResource("2_fq0ei")
+
+[node name="Node3D" type="Node3D" parent="Game"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Game/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Game/Node3D/CSGCombiner3D"]
+size = Vector3(10, 3, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Game/Node3D/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.124647, 0)
+operation = 2
+size = Vector3(9.8, 3, 9.8)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Game/Node3D"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="HUD" type="Control" parent="Game"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Game/HUD"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TimerLabel" type="Label" parent="Game/HUD/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Current Time: 00"
+
+[node name="BestTimeLabel" type="Label" parent="Game/HUD/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Best Time: 00"
+
+[node name="MainMenu" type="Node" parent="."]
+script = ExtResource("1_onbhf")
+
+[node name="CameraRotate" type="Node3D" parent="MainMenu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6412, 0)
+
+[node name="Camera3D" type="Camera3D" parent="MainMenu/CameraRotate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+current = true
+
+[node name="MainMenuUI" type="Control" parent="MainMenu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MainMenuUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -22.5
+offset_right = 104.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MainMenu/MainMenuUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Bubble Game"
+
+[node name="Spacer" type="Control" parent="MainMenu/MainMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MainMenu/MainMenuUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start game"
+
+[node name="Spacer2" type="Control" parent="MainMenu/MainMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Instructions" type="Button" parent="MainMenu/MainMenuUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Instructions"
+
+[node name="Spacer3" type="Control" parent="MainMenu/MainMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="MainMenu/MainMenuUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ck4e4m6c2ueu7"]
+[gd_scene load_steps=8 format=3 uid="uid://ck4e4m6c2ueu7"]
 
 [ext_resource type="PackedScene" uid="uid://cwdwree8x8l0" path="res://prefabs/player/player.tscn" id="1_157ok"]
+[ext_resource type="PackedScene" uid="uid://4tsjjid1fa65" path="res://prefabs/bubble/bubble.tscn" id="2_a4d06"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lq5l2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -35,3 +36,6 @@ mesh = SubResource("PlaneMesh_hn671")
 
 [node name="Player" parent="." instance=ExtResource("1_157ok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.137886, 0)
+
+[node name="Bubble" parent="." instance=ExtResource("2_a4d06")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0)

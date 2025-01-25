@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkpsad3dyav80"]
+[gd_scene load_steps=9 format=3 uid="uid://eidyg2m2qpb0"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_onbhf"]
 [ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_s7dc4"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="2_fq0ei"]
+[ext_resource type="PackedScene" uid="uid://cwdwree8x8l0" path="res://prefabs/player/player.tscn" id="4_qfimj"]
+[ext_resource type="PackedScene" uid="uid://4tsjjid1fa65" path="res://prefabs/bubble/bubble.tscn" id="5_eyr0g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f6xx8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -83,7 +85,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6412, 0)
 
 [node name="Camera3D" type="Camera3D" parent="MainMenu/CameraRotate"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-current = true
 
 [node name="MainMenuUI" type="Control" parent="MainMenu"]
 layout_mode = 3
@@ -138,3 +139,12 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
+
+[node name="Player" parent="." instance=ExtResource("4_qfimj")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+axis_lock_linear_y = true
+motion_mode = 0
+
+[node name="Bubble" parent="." instance=ExtResource("5_eyr0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94923, 0)

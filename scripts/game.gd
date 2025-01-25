@@ -7,6 +7,9 @@ class_name Game
 var timer_on: bool = false
 var timer: float = 0.0
 var player: CharacterBody3D = null
+var mills: float = 0.0
+var seconds: float = 0.0
+var minutes: float = 0.0
 
 @onready var hud: Control = %HUD
 @onready var fail_container: Control = %FailContainer
@@ -15,7 +18,6 @@ var player: CharacterBody3D = null
 
 @onready var camera_marker: Marker3D = %CameraPosition
 @onready var player_marker: Marker3D = %PlayerPosition
-
 
 @onready var level_manager: LevelManager = get_owner()
 
@@ -54,7 +56,10 @@ func start() -> void:
 	hud.visible = true
 	
 	timer_label.text = "Current time: 00 : 00 : 000"
-	best_time_label.text = "Best score: " + ScoreStorage.best_score
+	if ScoreStorage.best_score.length() > 0:
+		best_time_label.text = "Best time: " + ScoreStorage.best_score
+	else:
+		best_time_label.text = "Best time: " + "00 : 00 : 000"
 
 	await move_camera()
 	if player: 
@@ -65,6 +70,10 @@ func start() -> void:
 func restart() -> void:
 	timer = 0.0
 	timer_label.text = "Current time: 00 : 00 : 000"
+	if ScoreStorage.best_score.length() > 0:
+		best_time_label.text = ScoreStorage.best_score
+	else:
+		best_time_label.text = "Best time: " + "00 : 00 : 000"
 	timer_on = true
 	hud.visible = true
 	fail_container.visible = false
@@ -72,6 +81,12 @@ func restart() -> void:
 	spawn_area.spawn()
 
 func end() -> void:
+	if timer > ScoreStorage.best_timer:
+		ScoreStorage.best_timer = timer
+		ScoreStorage.best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]
+	minutes = 0.0
+	seconds = 0.0
+	mills = 0.0
 	timer_on = false
 	hud.visible = false
 	fail_container.visible = true
@@ -92,10 +107,9 @@ func _update_timer(delta: float) -> void:
 	
 	timer += delta
 	
-	var mills: float = fmod(timer, 1) * 1000
-	var seconds: float = fmod(timer, 60)
-	var minutes: float = fmod(timer, 60 * 60) / 60
+	mills = fmod(timer, 1) * 1000
+	seconds = fmod(timer, 60)
+	minutes = fmod(timer, 60 * 60) / 60
 	
 	var text: String = "Current time: %02d : %02d : %03d" % [minutes, seconds, mills]
-	ScoreStorage.best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]
 	timer_label.text = text

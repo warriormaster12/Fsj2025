@@ -2,13 +2,18 @@ extends Control
 
 @onready var restart_button: Button = $Container/HBoxContainer/RestartButton
 @onready var main_menu_button: Button = $Container/HBoxContainer/MainMenuButton
-
+@onready var result_label: Label = $Container/ResultLabel
 @onready var game: Game = get_owner().game
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	restart_button.pressed.connect(_restart_pressed)
 	main_menu_button.pressed.connect(_main_menu_pressed)
+	visibility_changed.connect(_visibility_changed)
+
+func _visibility_changed() -> void:
+	if visible: 
+		result_label.text = game.timer_label.text + "\n" + ScoreStorage.best_score
 
 
 func _restart_pressed() -> void: 

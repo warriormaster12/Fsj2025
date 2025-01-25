@@ -39,6 +39,9 @@ func start() -> void:
 	await move_camera()
 	timer_on = true
 
+func end() -> void:
+	timer_on = false
+
 func move_camera() -> void:
 	camera.reparent(world)
 	var tween: Tween = create_tween().set_parallel()

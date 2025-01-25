@@ -1,10 +1,13 @@
 extends Node
 class_name Game
 
+@export var player_scene: PackedScene = null
+@export var spawn_area: SpawnArea = null
 
 var timer_on: bool = false
 var timer: float = 0.0
 var best_score: String = "00 : 00 : 000"
+var player: CharacterBody3D = null
 
 @onready var hud: Control = %HUD
 @onready var fail_container: Control = %FailContainer
@@ -12,8 +15,8 @@ var best_score: String = "00 : 00 : 000"
 @onready var best_time_label: Label = %BestTimeLabel
 
 @onready var camera_marker: Marker3D = %CameraPosition
+@onready var player_marker: Marker3D = %PlayerPosition
 
-@onready var player_container: PlayerContainer = %PlayerContainer
 
 @onready var level_manager: LevelManager = get_owner()
 
@@ -27,8 +30,6 @@ func _ready() -> void:
 		start()
 	else: 
 		hud.visible = false
-		player_container.process_mode = Node.PROCESS_MODE_DISABLED
-		player_container.visible = false
 	
 	fail_container.visible = false
 
@@ -38,15 +39,28 @@ func _process(delta: float) -> void:
 
 
 func start() -> void:
+	if !spawn_area:
+		push_error("No spawn area assigned")
+		return
+
+	if player_scene:
+		player = player_scene.instantiate()
+		player.process_mode = Node.PROCESS_MODE_DISABLED
+		world.add_child(player)
+		player.global_position = player_marker.global_position
+	else:
+		push_warning("Player scene not defined")
+	
 	hud.visible = true
 	
 	timer_label.text = "Current time: 00 : 00 : 000"
 	best_time_label.text = "Best score: " + best_score
 
 	await move_camera()
+	if player: 
+		player.process_mode = Node.PROCESS_MODE_INHERIT
+	spawn_area.spawn()
 	timer_on = true
-	player_container.process_mode = Node.PROCESS_MODE_INHERIT
-	player_container.visible = true
 
 func restart() -> void:
 	timer = 0.0
@@ -54,16 +68,11 @@ func restart() -> void:
 	timer_on = true
 	hud.visible = true
 	fail_container.visible = false
-	player_container.visible = true
-	player_container.process_mode = Node.PROCESS_MODE_INHERIT
 
 func end() -> void:
 	timer_on = false
 	hud.visible = false
 	fail_container.visible = true
-	player_container.restart()
-	player_container.visible = false
-	player_container.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func move_camera() -> void:

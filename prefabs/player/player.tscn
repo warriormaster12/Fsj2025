@@ -7,7 +7,7 @@ size = Vector3(2, 0.2, 2)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rcoeq"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_4g4x7")

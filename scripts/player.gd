@@ -2,13 +2,14 @@ extends CharacterBody3D
 
 var PUSM: PowerUpStateManager = null
 
-const SPEED = 16.0
-const ACCELERATION = 24.0
+const EXCESS_SPEED_RATE = 2
+const MAX_SPEED = 8.0
+const ACCELERATION = 20.0
 const SLOWDOWN_ACCELERATION = 6.0
 const FRICTION = 12.0
 const DASH_FORCE = 20.0
 const DASH_RECHARGE_TIME = 10
-const DASH_COUNT_MAX = 3
+const DASH_COUNT_MAX = 999999999
 
 var dash_count: int = DASH_COUNT_MAX
 var dash_recharge_cooldown: float = DASH_RECHARGE_TIME
@@ -32,10 +33,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		if abs(direction.x) > 0.001:
 			var acceleration_x: float = ACCELERATION if signf(-velocity.x) != signf(direction.x) else SLOWDOWN_ACCELERATION
-			velocity.x = move_toward(velocity.x, speed_multiplier * SPEED * direction.x, speed_multiplier * acceleration_x * delta)
+			velocity.x = move_toward(velocity.x, speed_multiplier * MAX_SPEED * direction.x, speed_multiplier * acceleration_x * delta)
 		if abs(direction.z) > 0.001:
 			var acceleration_z: float = ACCELERATION if signf(-velocity.z) != signf(direction.z) else SLOWDOWN_ACCELERATION
-			velocity.z = move_toward(velocity.z, speed_multiplier * SPEED * direction.z, speed_multiplier * acceleration_z * delta)
+			velocity.z = move_toward(velocity.z, speed_multiplier * MAX_SPEED * direction.z, speed_multiplier * acceleration_z * delta)
+		var velocity_length: float = velocity.length()
+		if velocity_length > MAX_SPEED:
+			velocity *= move_toward(velocity_length, MAX_SPEED, EXCESS_SPEED_RATE * delta) / velocity_length
 
 	move_and_slide()
 	if is_on_wall():

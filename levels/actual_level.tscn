@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://eidyg2m2qpb0"]
+[gd_scene load_steps=11 format=3 uid="uid://eidyg2m2qpb0"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_onbhf"]
 [ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_s7dc4"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="2_fq0ei"]
+[ext_resource type="Script" path="res://scripts/fail_container_ui.gd" id="3_3d8vx"]
+[ext_resource type="Script" path="res://scripts/player_container.gd" id="3_o60vw"]
 [ext_resource type="PackedScene" uid="uid://cwdwree8x8l0" path="res://prefabs/player/player.tscn" id="4_qfimj"]
 [ext_resource type="PackedScene" uid="uid://4tsjjid1fa65" path="res://prefabs/bubble/bubble.tscn" id="5_eyr0g"]
 
@@ -49,9 +51,23 @@ shadow_enabled = true
 
 [node name="CameraPosition" type="Marker3D" parent="Game/Node3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.09212, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 0)
 
-[node name="HUD" type="Control" parent="Game"]
+[node name="PlayerContainer" type="Node3D" parent="Game/Node3D"]
+unique_name_in_owner = true
+process_mode = 4
+script = ExtResource("3_o60vw")
+
+[node name="Player" parent="Game/Node3D/PlayerContainer" instance=ExtResource("4_qfimj")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+axis_lock_linear_y = true
+motion_mode = 0
+
+[node name="Bubble" parent="Game/Node3D/PlayerContainer" instance=ExtResource("5_eyr0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94923, 0)
+
+[node name="HUD" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -60,22 +76,80 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Game/HUD"]
+[node name="Container" type="VBoxContainer" parent="HUD"]
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TimerLabel" type="Label" parent="Game/HUD/VBoxContainer"]
+[node name="TimerLabel" type="Label" parent="HUD/Container"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Current Time: 00"
 
-[node name="BestTimeLabel" type="Label" parent="Game/HUD/VBoxContainer"]
+[node name="BestTimeLabel" type="Label" parent="HUD/Container"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Best Time: 00"
+
+[node name="FailContainer" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_3d8vx")
+
+[node name="ColorRect" type="ColorRect" parent="FailContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.180392, 0.180392, 0.862745)
+
+[node name="Container" type="VBoxContainer" parent="FailContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.5
+offset_top = -48.0
+offset_right = 137.5
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultLabel" type="Label" parent="FailContainer/Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Result Label"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="FailContainer/Container"]
+custom_minimum_size = Vector2(0, 22.52)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FailContainer/Container"]
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="FailContainer/Container/HBoxContainer"]
+layout_mode = 2
+text = "Try again"
+
+[node name="Spacer" type="Control" parent="FailContainer/Container/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="FailContainer/Container/HBoxContainer"]
+layout_mode = 2
+text = "Back to main menu"
 
 [node name="MainMenu" type="Node" parent="."]
 script = ExtResource("1_onbhf")
@@ -139,12 +213,3 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
-
-[node name="Player" parent="." instance=ExtResource("4_qfimj")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-axis_lock_linear_y = true
-motion_mode = 0
-
-[node name="Bubble" parent="." instance=ExtResource("5_eyr0g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94923, 0)

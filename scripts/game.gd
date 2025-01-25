@@ -7,10 +7,13 @@ var timer: float = 0.0
 var best_score: String = "00 : 00 : 000"
 
 @onready var hud: Control = %HUD
+@onready var fail_container: Control = %FailContainer
 @onready var timer_label: Label = %TimerLabel
 @onready var best_time_label: Label = %BestTimeLabel
 
 @onready var camera_marker: Marker3D = %CameraPosition
+
+@onready var player_container: PlayerContainer = %PlayerContainer
 
 @onready var level_manager: LevelManager = get_owner()
 
@@ -24,6 +27,10 @@ func _ready() -> void:
 		start()
 	else: 
 		hud.visible = false
+		player_container.process_mode = Node.PROCESS_MODE_DISABLED
+		player_container.visible = false
+	
+	fail_container.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -38,9 +45,26 @@ func start() -> void:
 
 	await move_camera()
 	timer_on = true
+	player_container.process_mode = Node.PROCESS_MODE_INHERIT
+	player_container.visible = true
+
+func restart() -> void:
+	timer = 0.0
+	timer_label.text = "Current time: 00 : 00 : 000"
+	timer_on = true
+	hud.visible = true
+	fail_container.visible = false
+	player_container.visible = true
+	player_container.process_mode = Node.PROCESS_MODE_INHERIT
 
 func end() -> void:
 	timer_on = false
+	hud.visible = false
+	fail_container.visible = true
+	player_container.restart()
+	player_container.visible = false
+	player_container.process_mode = Node.PROCESS_MODE_DISABLED
+
 
 func move_camera() -> void:
 	camera.reparent(world)
@@ -62,4 +86,5 @@ func _update_timer(delta: float) -> void:
 	var minutes: float = fmod(timer, 60 * 60) / 60
 	
 	var text: String = "Current time: %02d : %02d : %03d" % [minutes, seconds, mills]
+	best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]
 	timer_label.text = text

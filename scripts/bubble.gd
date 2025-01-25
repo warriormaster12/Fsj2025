@@ -13,8 +13,8 @@ func _physics_process(delta: float) -> void:
 		direction = 0.75 * direction + 0.25 * Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
 		velocity = -get_gravity() * 0.5 + 4 * direction
 
+	move_and_slide()
+	
 	if position.y < 1 || is_on_wall():
 		bubble_destroy.emit()
 		queue_free()
-
-	move_and_slide()

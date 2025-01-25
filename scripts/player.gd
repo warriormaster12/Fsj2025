@@ -7,16 +7,28 @@ const ACCELERATION = 24.0
 const SLOWDOWN_ACCELERATION = 6.0
 const FRICTION = 12.0
 const DASH_FORCE = 20.0
+const DASH_RECHARGE_TIME = 10
+const DASH_COUNT_MAX = 3
+
+var dash_count: int = DASH_COUNT_MAX
+var dash_recharge_cooldown: float = DASH_RECHARGE_TIME
 
 func _physics_process(delta: float) -> void:
+	if dash_count < DASH_COUNT_MAX:
+		dash_recharge_cooldown -= delta
+		if dash_recharge_cooldown < 0:
+			dash_count += 1
+			dash_recharge_cooldown = DASH_RECHARGE_TIME
+
 	var input_dir := Input.get_vector("move_l", "move_r", "move_u", "move_d")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	velocity.z = move_toward(velocity.z, 0, FRICTION * delta)
 	var speed_multiplier: float = PUSM.player_speed_multiplier
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") && dash_count > 0:
 		velocity.x = direction.x * DASH_FORCE
 		velocity.z = direction.z * DASH_FORCE
+		dash_count -= 1
 	else:
 		if abs(direction.x) > 0.001:
 			var acceleration_x: float = ACCELERATION if signf(-velocity.x) != signf(direction.x) else SLOWDOWN_ACCELERATION

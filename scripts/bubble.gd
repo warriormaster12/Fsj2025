@@ -26,7 +26,14 @@ func _physics_process(delta: float) -> void:
 		velocity = -get_gravity() * randf_range(0.75, 1.0) + 4 * direction
 
 	move_and_slide()
-	
-	if position.y < 1 || is_on_wall():
+
+	if is_on_wall():
+		var wall: Vector3 = get_wall_normal()
+		if wall.x:
+			velocity.x *= -1
+		if wall.z:
+			velocity.z *= -1
+
+	if position.y < 1:
 		bubble_destroy.emit()
 		queue_free()

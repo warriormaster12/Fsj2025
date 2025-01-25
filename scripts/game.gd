@@ -90,6 +90,8 @@ func end() -> void:
 	timer_on = false
 	hud.visible = false
 	fail_container.visible = true
+	if player: 
+		player.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func move_camera() -> void:

@@ -75,7 +75,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="SpawnArea" type="Node3D" parent="Game/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.02711, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.57724, 0)
 script = ExtResource("4_85fx6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Node3D/SpawnArea"]

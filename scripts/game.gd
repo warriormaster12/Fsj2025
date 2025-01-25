@@ -69,6 +69,8 @@ func start() -> void:
 
 func restart() -> void:
 	timer = 0.0
+	if player: 
+		player.process_mode = Node.PROCESS_MODE_INHERIT
 	timer_label.text = "Current time: 00 : 00 : 000"
 	if ScoreStorage.best_score.length() > 0:
 		best_time_label.text = ScoreStorage.best_score
@@ -90,7 +92,8 @@ func end() -> void:
 	timer_on = false
 	hud.visible = false
 	fail_container.visible = true
-	if player: 
+	if player:
+		player.velocity = Vector3.ZERO
 		player.process_mode = Node.PROCESS_MODE_DISABLED
 
 

@@ -33,7 +33,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x *= -1
 		if wall.z:
 			velocity.z *= -1
-
-	if position.y < 1:
+	
+	var collision: KinematicCollision3D = get_last_slide_collision()
+	if collision && is_on_floor() && !collision.get_collider().is_in_group("player"):
 		bubble_destroy.emit()
 		queue_free()

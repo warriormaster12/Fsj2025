@@ -17,13 +17,11 @@ func _ready() -> void:
 
 
 func spawn() -> void:
-	while true:
-		var spawn_instance: Node3D = spawn_objects[0].instantiate()
-		get_parent().add_child.call_deferred(spawn_instance)
-	
-		spawn_instance.position = get_random_position()
+	var spawn_instance: Node3D = spawn_objects[0].instantiate()
+	get_parent().add_child.call_deferred(spawn_instance)
+
+	spawn_instance.position = get_random_position()
 		
-		await get_tree().create_timer(2.0).timeout
 
 
 

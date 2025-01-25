@@ -3,7 +3,7 @@ class_name MainMenu
 
 @export var camera_rotation_speed: float = 0.25
 
-@onready var main_menu_ui: Control = $MainMenuUI
+@onready var main_menu_ui: Control = %MainMenuUI
 @onready var start_button: Button = %StartButton
 @onready var instruct_button: Button = %Instructions
 @onready var quit_button: Button = %QuitButton

@@ -6,7 +6,6 @@ class_name Game
 
 var timer_on: bool = false
 var timer: float = 0.0
-var best_score: String = "00 : 00 : 000"
 var player: CharacterBody3D = null
 
 @onready var hud: Control = %HUD
@@ -54,7 +53,7 @@ func start() -> void:
 	hud.visible = true
 	
 	timer_label.text = "Current time: 00 : 00 : 000"
-	best_time_label.text = "Best score: " + best_score
+	best_time_label.text = "Best score: " + ScoreStorage.best_score
 
 	await move_camera()
 	if player: 
@@ -68,6 +67,8 @@ func restart() -> void:
 	timer_on = true
 	hud.visible = true
 	fail_container.visible = false
+	player.global_position = player_marker.global_position
+	spawn_area.spawn()
 
 func end() -> void:
 	timer_on = false
@@ -95,5 +96,5 @@ func _update_timer(delta: float) -> void:
 	var minutes: float = fmod(timer, 60 * 60) / 60
 	
 	var text: String = "Current time: %02d : %02d : %03d" % [minutes, seconds, mills]
-	best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]
+	ScoreStorage.best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]
 	timer_label.text = text

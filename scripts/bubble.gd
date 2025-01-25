@@ -7,6 +7,8 @@ const HORIZONTAL_SPEED = 2
 
 var player: CharacterBody3D = null
 
+func _ready() -> void:
+	velocity.y = 5.0
 
 func _process(_delta: float) -> void:
 	if !player:

@@ -30,6 +30,10 @@ window/size/window_height_override=720
 
 project/assembly_name="FSJ2025"
 
+[global_group]
+
+bubbles=""
+
 [input]
 
 move_l={

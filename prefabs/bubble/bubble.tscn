@@ -6,7 +6,7 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_k03oe"]
 
-[node name="Bubble" type="CharacterBody3D"]
+[node name="Bubble" type="CharacterBody3D" groups=["bubbles"]]
 platform_on_leave = 2
 script = ExtResource("1_lgwx7")
 

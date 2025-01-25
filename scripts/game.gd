@@ -4,9 +4,11 @@ class_name Game
 
 var timer_on: bool = false
 var timer: float = 0.0
+var best_score: String = "00 : 00 : 000"
 
 @onready var hud: Control = %HUD
 @onready var timer_label: Label = %TimerLabel
+@onready var best_time_label: Label = %BestTimeLabel
 
 @onready var camera_marker: Marker3D = %CameraPosition
 
@@ -15,6 +17,7 @@ var timer: float = 0.0
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
 @onready var world: Node3D = get_child(0)
+
 
 func _ready() -> void:
 	if !level_manager.main_menu:
@@ -29,6 +32,10 @@ func _process(delta: float) -> void:
 
 func start() -> void:
 	hud.visible = true
+	
+	timer_label.text = "Current time: 00 : 00 : 000"
+	best_time_label.text = "Best score: " + best_score
+
 	await move_camera()
 	timer_on = true
 

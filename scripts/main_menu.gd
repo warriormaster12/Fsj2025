@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 func _on_start_pressed() -> void:
 	main_menu_ui.visible = false
 	level_manager.game.start()
+	set_process(false)
 
 func _on_instruct_pressed() -> void: 
 	pass

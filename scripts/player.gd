@@ -26,3 +26,9 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, speed_multiplier * SPEED * direction.z, speed_multiplier * acceleration_z * delta)
 
 	move_and_slide()
+	if is_on_wall():
+		var normal: Vector3 = get_wall_normal()
+		if signf(-normal.x) == signf(velocity.x):
+			velocity.x = 0
+		if signf(-normal.z) == signf(velocity.z):
+			velocity.z = 0

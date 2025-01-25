@@ -4,6 +4,9 @@ signal bubble_destroy()
 signal bubble_bounce()
 
 const HORIZONTAL_SPEED = 2
+const GRAVITY: float = 5
+const BOUNCE_STRENGTH_MIN: float = 3
+const BOUNCE_STRENGTH_MAX: float = 6
 
 var player: CharacterBody3D = null
 
@@ -17,13 +20,13 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += Vector3.DOWN * GRAVITY * delta
 	else:
 		bubble_bounce.emit()
 		var player_delta: Vector3 = position - player.position
 		var direction: Vector3 = player_delta.clamp(Vector3(-1, 0, -1), Vector3(1, 0, 1))
 		direction = 0.5 * direction + 1 * Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
-		velocity = -get_gravity() * randf_range(0.75, 1.0) + 4 * direction
+		velocity = Vector3.UP * randf_range(BOUNCE_STRENGTH_MIN, BOUNCE_STRENGTH_MAX) + 4 * direction
 
 	move_and_slide()
 

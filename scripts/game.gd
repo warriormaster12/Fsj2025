@@ -45,6 +45,7 @@ func start() -> void:
 	if player_scene:
 		player = player_scene.instantiate()
 		player.process_mode = Node.PROCESS_MODE_DISABLED
+		player.PUSM = %PowerUpStateManager
 		world.add_child(player)
 		player.global_position = player_marker.global_position
 	else:

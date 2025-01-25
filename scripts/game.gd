@@ -43,6 +43,8 @@ func start() -> void:
 	if !spawn_area:
 		push_error("No spawn area assigned")
 		return
+		
+	%PowerUpStateManager.spawn_area = spawn_area
 
 	if player_scene:
 		player = player_scene.instantiate()
@@ -64,7 +66,7 @@ func start() -> void:
 	await move_camera()
 	if player: 
 		player.process_mode = Node.PROCESS_MODE_INHERIT
-	spawn_area.spawn()
+	spawn_area.spawn_bubble()
 	timer_on = true
 
 func restart() -> void:
@@ -80,7 +82,7 @@ func restart() -> void:
 	hud.visible = true
 	fail_container.visible = false
 	player.global_position = player_marker.global_position
-	spawn_area.spawn()
+	spawn_area.spawn_bubble()
 
 func end() -> void:
 	if timer > ScoreStorage.best_timer:

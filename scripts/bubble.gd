@@ -10,7 +10,6 @@ const BOUNCE_STRENGTH_MAX: float = 6
 
 var player: CharacterBody3D = null
 
-@onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 
 
@@ -29,7 +28,6 @@ func _physics_process(delta: float) -> void:
 		velocity += Vector3.DOWN * GRAVITY * delta
 	else:
 		bubble_bounce.emit()
-		audio_player.play()
 		var player_delta: Vector3 = position - player.position
 		var direction: Vector3 = player_delta
 		if direction.length_squared() > 1:

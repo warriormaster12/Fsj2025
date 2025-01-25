@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://4tsjjid1fa65"]
+[gd_scene load_steps=8 format=3 uid="uid://4tsjjid1fa65"]
 
 [ext_resource type="Script" path="res://scripts/bubble.gd" id="1_lgwx7"]
 [ext_resource type="Shader" path="res://prefabs/bubble/bubble.gdshader" id="2_utge1"]
-[ext_resource type="AudioStream" uid="uid://cs70mocqmwkg3" path="res://resources/audio/sfx/bounce.wav" id="3_uhn34"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c0a5l"]
 
@@ -36,6 +35,3 @@ shape = SubResource("SphereShape3D_c0a5l")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_cuo7y")
 mesh = SubResource("SphereMesh_k03oe")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_uhn34")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://eidyg2m2qpb0"]
+[gd_scene load_steps=29 format=3 uid="uid://eidyg2m2qpb0"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_onbhf"]
 [ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_s7dc4"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://scripts/spawn_area.gd" id="4_85fx6"]
 [ext_resource type="Texture2D" uid="uid://chderehfhtemy" path="res://resources/images/textures/ground1.png" id="4_kjist"]
 [ext_resource type="PackedScene" uid="uid://cwdwree8x8l0" path="res://prefabs/player/player.tscn" id="4_qfimj"]
+[ext_resource type="Texture2D" uid="uid://4p44e5afuo25" path="res://resources/images/textures/wall1.png" id="5_05m2l"]
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="5_hw5b0"]
+[ext_resource type="Texture2D" uid="uid://dt1lly1h0obi8" path="res://resources/images/textures/wall1_top.png" id="6_h8hc1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f6xx8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -43,13 +45,43 @@ texture_filter = 0
 material = SubResource("StandardMaterial3D_ane2a")
 size = Vector2(23, 15)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ovoxn"]
+albedo_texture = ExtResource("6_h8hc1")
+uv1_scale = Vector3(0.125, 0.25, 0.125)
+uv1_offset = Vector3(0.17, 1.46, 0)
+uv1_triplanar = true
+texture_filter = 0
+
 [sub_resource type="BoxMesh" id="BoxMesh_lioan"]
-size = Vector3(0.2, 7, 15)
+material = SubResource("StandardMaterial3D_ovoxn")
+size = Vector3(0.2, 3.5, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1khbg"]
+albedo_texture = ExtResource("5_05m2l")
+uv1_scale = Vector3(0.125, 0.25, 0.125)
+uv1_offset = Vector3(0.17, 1.46, 0)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_n1obh"]
+material = SubResource("StandardMaterial3D_1khbg")
+size = Vector3(0.2, 3.5, 15)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kb6lh"]
 points = PackedVector3Array(-0.1, -3.5, -7.5, 0.1, -3.5, -7.5, -0.1, -3.5, 7.5, -0.1, 3.5, -7.5, 0.1, 3.5, -7.5, 0.1, -3.5, 7.5, -0.1, 3.5, 7.5, 0.1, 3.5, 7.5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_6vjlw"]
+material = SubResource("StandardMaterial3D_ovoxn")
+size = Vector3(0.2, 3.5, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fmfw5"]
+albedo_texture = ExtResource("5_05m2l")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+
 [sub_resource type="BoxMesh" id="BoxMesh_j1wu4"]
+material = SubResource("StandardMaterial3D_fmfw5")
 size = Vector3(0.2, 7, 23)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w1a7o"]
@@ -98,7 +130,12 @@ skeleton = NodePath("../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 3.5, 0)
 
 [node name="WallMesh" type="MeshInstance3D" parent="Game/Node3D/Level/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72198, 0)
 mesh = SubResource("BoxMesh_lioan")
+
+[node name="WallMesh2" type="MeshInstance3D" parent="Game/Node3D/Level/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.68161, 0)
+mesh = SubResource("BoxMesh_n1obh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Node3D/Level/Wall"]
 shape = SubResource("ConvexPolygonShape3D_kb6lh")
@@ -106,7 +143,12 @@ shape = SubResource("ConvexPolygonShape3D_kb6lh")
 [node name="Wall2" type="StaticBody3D" parent="Game/Node3D/Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 3.5, 0)
 
+[node name="WallMesh2" type="MeshInstance3D" parent="Game/Node3D/Level/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76765, 0)
+mesh = SubResource("BoxMesh_6vjlw")
+
 [node name="WallMesh" type="MeshInstance3D" parent="Game/Node3D/Level/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.67408, 0)
 mesh = SubResource("BoxMesh_lioan")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Node3D/Level/Wall2"]

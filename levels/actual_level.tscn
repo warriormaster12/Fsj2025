@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://eidyg2m2qpb0"]
+[gd_scene load_steps=40 format=3 uid="uid://eidyg2m2qpb0"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_onbhf"]
 [ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_s7dc4"]
@@ -11,11 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://4p44e5afuo25" path="res://resources/images/textures/wall1.png" id="5_05m2l"]
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="5_hw5b0"]
 [ext_resource type="Texture2D" uid="uid://dt1lly1h0obi8" path="res://resources/images/textures/wall1_top.png" id="6_h8hc1"]
+[ext_resource type="Script" path="res://scripts/audio_manager.gd" id="9_5kvnm"]
 [ext_resource type="FontFile" uid="uid://dnqmabcw4y52w" path="res://resources/fonts/ari-w9500/ari-w9500-display.ttf" id="9_u3jex"]
+[ext_resource type="AudioStream" uid="uid://cs70mocqmwkg3" path="res://resources/audio/sfx/bounce.wav" id="10_el4yl"]
 [ext_resource type="Texture2D" uid="uid://e0b0cxxgm4gg" path="res://resources/images/kenney_input-prompts-pixel-16/Tiles/tile_0253.png" id="10_so4hy"]
 [ext_resource type="Texture2D" uid="uid://bsfio1375bden" path="res://resources/images/kenney_input-prompts-pixel-16/Tiles/tile_0612.png" id="11_6qet0"]
-[ext_resource type="Script" path="res://scripts/audio_manager.gd" id="9_5kvnm"]
-[ext_resource type="AudioStream" uid="uid://cs70mocqmwkg3" path="res://resources/audio/sfx/bounce.wav" id="10_el4yl"]
 [ext_resource type="AudioStream" uid="uid://chy8q11n2mvxr" path="res://resources/audio/sfx/pop.wav" id="11_js3ue"]
 [ext_resource type="AudioStream" uid="uid://crpxprorluevy" path="res://resources/audio/music/bub_theme_master.wav" id="12_dlqof"]
 [ext_resource type="AudioStream" uid="uid://b1itp1cyelbb5" path="res://resources/audio/music/bub_menu.wav" id="13_j7iep"]
@@ -257,7 +257,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 
-[node name="PowerUpsLabel" type="Label" parent="UIElements/ThemeNode/HUD/Container"]
+[node name="PowerUpsContainer" type="VBoxContainer" parent="UIElements/ThemeNode/HUD/Container"]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -512,18 +512,14 @@ pop_stream = ExtResource("11_js3ue")
 
 [node name="BCG" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("12_dlqof")
-bus = &"Music"
 
 [node name="Menu_BCG" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("13_j7iep")
 volume_db = -9.173
-bus = &"Music"
 
 [node name="GameStart" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("14_ybwpb")
 volume_db = -3.0
-bus = &"SFX"
 
 [node name="GameOver" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("15_5b15r")
-bus = &"SFX"

@@ -4,6 +4,10 @@ class_name PowerUpStateManager
 signal power_up_added(power_up: PowerUp);
 signal power_up_expire(power_up: PowerUp);
 
+@onready var pickup_fx: AudioStreamPlayer3D = $"../AudioManager/PowerupPickup"
+@onready var expire_fx: AudioStreamPlayer3D = $"../AudioManager/PowerupExpire"
+@onready var bcg: AudioStreamPlayer3D = $"../AudioManager/BCG"
+
 enum PowerUpType {
 	PLAYER_SPEEDUP,
 	TIME_SLOWDOWN,
@@ -28,6 +32,7 @@ func reset_power_ups() -> void:
 	active_power_ups.clear()
 
 func _physics_process(delta: float) -> void:
+	bcg.pitch_scale = 1
 	if Engine.time_scale < 0.01:
 		delta = 0
 	else:
@@ -39,17 +44,22 @@ func _physics_process(delta: float) -> void:
 		var power_up: PowerUp = active_power_ups[i]
 		power_up.duration -= delta
 		if power_up.duration < 0:
+			expire_fx.play()
 			power_up_expire.emit(power_up)
+			bcg.pitch_scale = 1
 			active_power_ups.remove_at(i)
 			continue
 		match power_up.type:
 			PowerUpType.PLAYER_SPEEDUP:
 				player_speed_multiplier *= 1.5
+				bcg.pitch_scale = 1.1
 			PowerUpType.TIME_SLOWDOWN:
 				time_scale *= 0.5
+				bcg.pitch_scale = 0.9
 	Engine.time_scale = time_scale
 
 func activate_random_power_up() -> void:
+	pickup_fx.play()
 	var type: PowerUpType = PowerUpType.values()[randi() % PowerUpType.size()]
 	if type == PowerUpType.BUBBLES:
 		for i in range(0, randi() % 5 + 1):

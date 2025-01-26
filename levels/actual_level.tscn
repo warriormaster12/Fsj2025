@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://eidyg2m2qpb0"]
+[gd_scene load_steps=42 format=3 uid="uid://eidyg2m2qpb0"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_onbhf"]
 [ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_s7dc4"]
@@ -21,6 +21,8 @@
 [ext_resource type="AudioStream" uid="uid://b1itp1cyelbb5" path="res://resources/audio/music/bub_menu.wav" id="13_j7iep"]
 [ext_resource type="AudioStream" uid="uid://6q545sjqgcw8" path="res://resources/audio/sfx/start_game_2.wav" id="14_ybwpb"]
 [ext_resource type="AudioStream" uid="uid://dfysisfgul7pu" path="res://resources/audio/sfx/game_over.wav" id="15_5b15r"]
+[ext_resource type="AudioStream" uid="uid://dckmug3yh5oml" path="res://resources/audio/sfx/powerup_pickup.wav" id="22_3533m"]
+[ext_resource type="AudioStream" uid="uid://bpsc3repncce7" path="res://resources/audio/sfx/powerup_end.wav" id="23_6bfs7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f6xx8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -544,3 +546,11 @@ volume_db = -3.0
 
 [node name="GameOver" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("15_5b15r")
+
+[node name="PowerupPickup" type="AudioStreamPlayer3D" parent="AudioManager"]
+stream = ExtResource("22_3533m")
+bus = &"SFX"
+
+[node name="PowerupExpire" type="AudioStreamPlayer3D" parent="AudioManager"]
+stream = ExtResource("23_6bfs7")
+bus = &"SFX"

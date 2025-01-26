@@ -398,4 +398,5 @@ bus = &"Music"
 
 [node name="GameStart" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("14_ybwpb")
+volume_db = -3.0
 bus = &"SFX"

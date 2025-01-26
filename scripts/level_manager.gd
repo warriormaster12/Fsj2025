@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 		if !bubble.is_connected("bubble_destroy", _on_bubble_destroyed):
 			bubble.bubble_destroy.connect(_on_bubble_destroyed)
 
-func _on_bubble_destroyed() -> void:
+func _on_bubble_destroyed(_position: Vector3) -> void:
 	bubble_count = clampi(bubble_count -1, 0, bubble_count)
 	if game && bubble_count == 0:
 		game.end()

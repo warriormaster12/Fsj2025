@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-signal bubble_destroy()
-signal bubble_bounce()
+signal bubble_destroy(position: Vector3)
+signal bubble_bounce(position: Vector3)
 
 const HORIZONTAL_SPEED = 2
 const GRAVITY: float = 5
@@ -9,8 +9,6 @@ const BOUNCE_STRENGTH_MIN: float = 5
 const BOUNCE_STRENGTH_MAX: float = 6
 
 var player: CharacterBody3D = null
-
-
 
 
 func _ready() -> void:
@@ -27,7 +25,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += Vector3.DOWN * GRAVITY * delta
 	else:
-		bubble_bounce.emit()
+		bubble_bounce.emit(global_position)
 		var player_delta: Vector3 = position - player.position
 		var direction: Vector3 = player_delta
 		if direction.length_squared() > 1:
@@ -49,5 +47,5 @@ func _physics_process(delta: float) -> void:
 
 	var collision: KinematicCollision3D = get_last_slide_collision()
 	if collision && is_on_floor() && !collision.get_collider().is_in_group("player"):
-		bubble_destroy.emit()
+		bubble_destroy.emit(global_position)
 		queue_free()

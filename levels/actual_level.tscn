@@ -535,17 +535,21 @@ pop_stream = ExtResource("11_js3ue")
 
 [node name="BCG" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("12_dlqof")
+bus = &"Music"
 
 [node name="Menu_BCG" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("13_j7iep")
 volume_db = -9.173
+bus = &"Music"
 
 [node name="GameStart" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("14_ybwpb")
 volume_db = -3.0
+bus = &"SFX"
 
 [node name="GameOver" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("15_5b15r")
+bus = &"SFX"
 
 [node name="PowerupPickup" type="AudioStreamPlayer3D" parent="AudioManager"]
 stream = ExtResource("22_3533m")

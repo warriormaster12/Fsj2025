@@ -1,4 +1,4 @@
-extends Control
+extends HBoxContainer
 class_name PowerUpDisplay
 
 @onready var progress_bar: ProgressBar = %ProgressBar

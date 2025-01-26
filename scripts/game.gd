@@ -5,6 +5,8 @@ class_name Game
 @export var spawn_area: SpawnArea = null
 @export var power_up_display: PackedScene = preload("res://prefabs/power_up_display/power_up_display.tscn")
 
+@onready var game_start: AudioStreamPlayer3D = $"../AudioManager/GameStart"
+
 var timer_on: bool = false
 var timer: float = 0.0
 var player: CharacterBody3D = null
@@ -95,6 +97,8 @@ func start() -> void:
 	timer_on = true
 
 func restart() -> void:
+	game_start.play()
+	await game_start.finished
 	bcg.play()
 	timer = 0.0
 	if player: 

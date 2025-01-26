@@ -17,6 +17,10 @@ func _process(_delta: float) -> void:
 	var entires_to_remove: Array[int] = []
 	for i in range(0, sfx_list.size()):
 		var current_sfx: AudioStreamPlayer3D = sfx_list[i]
+		
+		if current_sfx == null:
+			continue
+		
 		if !current_sfx.playing:
 			current_sfx.queue_free()
 			entires_to_remove.push_back(i)

@@ -147,34 +147,11 @@ visible = false
 mesh = SubResource("BoxMesh_8p442")
 metadata/_edit_lock_ = true
 
-[node name="Lights" type="Node3D" parent="Game/Node3D"]
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Game/Node3D/Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.19076, 18.1391, -0.00168514)
-light_color = Color(1, 0.888137, 0.694007, 1)
-light_energy = 12.0
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Game/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11.9397, 0)
+light_color = Color(1, 0.924696, 0.608513, 1)
 shadow_enabled = true
 shadow_opacity = 0.8
-spot_range = 22.0
-spot_angle_attenuation = 1.31951
-
-[node name="SpotLight3D3" type="SpotLight3D" parent="Game/Node3D/Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.391775, 18.1391, -0.00168514)
-light_color = Color(1, 0.888137, 0.694007, 1)
-light_energy = 12.0
-shadow_enabled = true
-shadow_opacity = 0.8
-spot_range = 22.0
-spot_angle_attenuation = 1.31951
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="Game/Node3D/Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -5.58811, 18.1391, 0)
-light_color = Color(1, 0.888137, 0.694007, 1)
-light_energy = 12.0
-shadow_enabled = true
-shadow_opacity = 0.8
-spot_range = 22.0
-spot_angle_attenuation = 1.31951
 
 [node name="UIElements" type="CanvasLayer" parent="."]
 script = ExtResource("5_hw5b0")

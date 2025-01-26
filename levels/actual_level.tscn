@@ -497,7 +497,7 @@ theme_override_colors/font_color = Color(0.968627, 0, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "Credits:
 Tom Ingvall - Graphics
-Anna Malassu - Audio
+Anna Malassu - Audio & Code
 Alexander Streng - Code
 Akseli Viitanen - Code"
 

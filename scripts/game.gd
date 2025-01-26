@@ -97,6 +97,7 @@ func end() -> void:
 	if player:
 		player.velocity = Vector3.ZERO
 		player.process_mode = Node.PROCESS_MODE_DISABLED
+	%PowerUpStateManager.reset_power_ups()
 
 
 func move_camera() -> void:

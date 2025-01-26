@@ -21,6 +21,9 @@ var spawn_area: SpawnArea = null
 var active_power_ups: Array[PowerUp] = []
 var player_speed_multiplier: float = 1
 
+func reset_power_ups() -> void:
+	active_power_ups.clear()
+
 func _process(_delta: float) -> void:
 	var text: String = ""
 	for power_up in active_power_ups:
@@ -55,5 +58,6 @@ func activate_random_power_up(pos: Vector3) -> void:
 	if type == PowerUpType.BUBBLES:
 		for i in range(0, randi() % 5 + 1):
 			spawn_area.spawn_bubble()
+			await get_tree().create_timer(0.5).timeout
 	active_power_ups.append(PowerUp.new(type, 10))
 	

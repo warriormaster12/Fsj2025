@@ -11,7 +11,9 @@ const BOUNCE_STRENGTH_MAX: float = 6
 var player: CharacterBody3D = null
 
 func _ready() -> void:
-	velocity.y = 5.0
+	velocity.y = randf_range(BOUNCE_STRENGTH_MIN, BOUNCE_STRENGTH_MAX)
+	velocity.x = randf()
+	velocity.z = randf()
 
 func _process(_delta: float) -> void:
 	if !player:

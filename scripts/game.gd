@@ -32,6 +32,7 @@ var got_highscore: bool = false
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
 @onready var world: Node3D = get_child(0)
+@onready var bcg: AudioStreamPlayer3D = $"../AudioManager/BCG"
 
 var current_power_ups: Dictionary = {}
 
@@ -58,6 +59,8 @@ func _process(delta: float) -> void:
 			bubble.bubble_bounce.connect(_on_bubble_bounce)
 
 func start() -> void:
+	bcg.play()
+	
 	if !spawn_area:
 		push_error("No spawn area assigned")
 		return
@@ -92,6 +95,7 @@ func start() -> void:
 	timer_on = true
 
 func restart() -> void:
+	bcg.play()
 	timer = 0.0
 	if player: 
 		player.process_mode = Node.PROCESS_MODE_INHERIT
@@ -111,6 +115,7 @@ func restart() -> void:
 	spawn_area.spawn_bubble()
 
 func end() -> void:
+	bcg.stop()
 	if timer > ScoreStorage.best_timer:
 		ScoreStorage.best_timer = timer
 		ScoreStorage.best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]

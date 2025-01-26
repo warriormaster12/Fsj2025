@@ -13,7 +13,13 @@ func _ready() -> void:
 
 func _visibility_changed() -> void:
 	if visible: 
-		result_label.text = game.timer_label.text + "\n" + ScoreStorage.best_score
+		var text: String = game.timer_label.text + "\n" + ScoreStorage.best_score
+		if game.got_highscore:
+			text += "\nNEW HIGH-SCORE"
+		text += "\n" + game.score_label.text
+		if not game.got_highscore:
+			text += "\n" + game.best_score_label.text
+		result_label.text = text
 
 
 func _restart_pressed() -> void: 

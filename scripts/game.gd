@@ -10,11 +10,15 @@ var player: CharacterBody3D = null
 var mills: float = 0.0
 var seconds: float = 0.0
 var minutes: float = 0.0
+var score: int = 0
+var got_highscore: bool = false
 
 @onready var hud: Control = %HUD
 @onready var fail_container: Control = %FailContainer
 @onready var timer_label: Label = %TimerLabel
 @onready var best_time_label: Label = %BestTimeLabel
+@onready var score_label: Label = %ScoreLabel
+@onready var best_score_label: Label = %BestScoreLabel
 
 @onready var camera_marker: Marker3D = %CameraPosition
 @onready var player_marker: Marker3D = %PlayerPosition
@@ -37,7 +41,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_update_timer(delta)
+	var found_bubbles:Array[Node] = get_tree().get_nodes_in_group("bubbles")
+	
+	for bubble in found_bubbles:
+		if !bubble.has_signal("bubble_bounce"):
+			continue
 
+		if !bubble.is_connected("bubble_bounce", _on_bubble_bounce):
+			bubble.bubble_bounce.connect(_on_bubble_bounce)
 
 func start() -> void:
 	if !spawn_area:
@@ -63,6 +74,9 @@ func start() -> void:
 		best_time_label.text = "Best time: " + ScoreStorage.best_score
 	else:
 		best_time_label.text = "Best time: " + "00 : 00 : 000"
+	
+	best_score_label.text = "High-score: " + str(ScoreStorage.best_points)
+	score_label.text = "Score: 0"
 
 	await move_camera()
 	if player: 
@@ -79,6 +93,9 @@ func restart() -> void:
 		best_time_label.text = ScoreStorage.best_score
 	else:
 		best_time_label.text = "Best time: " + "00 : 00 : 000"
+	best_score_label.text = "High-score: " + str(ScoreStorage.best_points)
+	score_label.text = "Score: 0"
+	score = 0
 	timer_on = true
 	hud.visible = true
 	fail_container.visible = false
@@ -90,6 +107,9 @@ func end() -> void:
 	if timer > ScoreStorage.best_timer:
 		ScoreStorage.best_timer = timer
 		ScoreStorage.best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]
+	got_highscore = score > ScoreStorage.best_points
+	if got_highscore:
+		ScoreStorage.best_points = score
 	minutes = 0.0
 	seconds = 0.0
 	mills = 0.0
@@ -101,6 +121,8 @@ func end() -> void:
 		player.process_mode = Node.PROCESS_MODE_DISABLED
 	spawn_area.game_active = false
 	%PowerUpStateManager.reset_power_ups()
+	for powerup in get_tree().get_nodes_in_group("powerups"):
+		powerup.queue_free()
 
 
 func move_camera() -> void:
@@ -124,3 +146,7 @@ func _update_timer(delta: float) -> void:
 	
 	var text: String = "Current time: %02d : %02d : %03d" % [minutes, seconds, mills]
 	timer_label.text = text
+
+func _on_bubble_bounce() -> void:
+	score += 1
+	score_label.text = "Score: " + str(score)

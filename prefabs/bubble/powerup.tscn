@@ -24,7 +24,7 @@ shader_parameter/noise_tex = SubResource("NoiseTexture2D_0wvv8")
 
 [sub_resource type="SphereMesh" id="SphereMesh_k03oe"]
 
-[node name="PowerUp" type="CharacterBody3D"]
+[node name="PowerUp" type="CharacterBody3D" groups=["powerups"]]
 collision_layer = 2
 platform_on_leave = 2
 script = ExtResource("1_0862s")

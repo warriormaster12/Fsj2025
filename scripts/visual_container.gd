@@ -13,10 +13,12 @@ func _ready() -> void:
 
 func manage_eyes(direction: Vector3) -> void:
 	eyes.flip_h = sign(direction.x) == 1 
-	var running: bool = ceilf(direction.x) == 1.0
-	eyes_anim_tree.set("parameters/idle_run/blend_amount", abs(direction.x))
+	var running: bool = direction.x != 0.0
+	eyes_anim_tree.set("parameters/idle_run/blend_amount", abs(sign(direction.x)))
 	if running:
-		eyes.set("parameters/run_eyes/blend_position", -direction.x if eyes.flip_h else direction.x)
+		eyes_anim_tree.set("parameters/RunEyes/blend_position", -abs(direction.x))
+	else:
+		eyes_anim_tree.set("parameters/IdleEyes/blend_position", 0.0)
 
 func manage_body(direction: Vector3) -> void:
 	body_anim_tree.set("parameters/idle_run/blend_position", direction)

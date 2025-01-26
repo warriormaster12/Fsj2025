@@ -271,7 +271,6 @@ blend_point_4/pos = Vector2(0, 0)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_m3mf7"]
-graph_offset = Vector2(-327.627, 14.7543)
 nodes/idle_run/node = SubResource("AnimationNodeBlendSpace2D_sabs4")
 nodes/idle_run/position = Vector2(-190, 100)
 nodes/output/position = Vector2(330, 110)
@@ -316,7 +315,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_5tnu2"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_su207"]
-graph_offset = Vector2(-441.152, 77.0105)
+graph_offset = Vector2(-535, 203.5)
 nodes/IdleEyes/node = SubResource("AnimationNodeBlendSpace1D_u0fek")
 nodes/IdleEyes/position = Vector2(-320, 120)
 nodes/RunEyes/node = SubResource("AnimationNodeBlendSpace1D_ah2wm")
@@ -370,5 +369,5 @@ parameters/idle_run/blend_position = Vector2(0, 0)
 tree_root = SubResource("AnimationNodeBlendTree_su207")
 anim_player = NodePath("../EyesAnimationPlayer")
 parameters/IdleEyes/blend_position = 0.0
-parameters/RunEyes/blend_position = 0.0
-parameters/idle_run/blend_amount = 0.0
+parameters/RunEyes/blend_position = 0.0429595
+parameters/idle_run/blend_amount = 1.0

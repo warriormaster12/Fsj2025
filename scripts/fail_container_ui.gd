@@ -27,7 +27,7 @@ func _restart_pressed() -> void:
 
 func _main_menu_pressed() -> void: 
 	var tween: Tween = create_tween()
-	var color_rect: ColorRect = get_parent().color_rect
+	var color_rect: ColorRect = get_parent().get_parent().color_rect
 	color_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	tween.tween_property(color_rect, "color:a", 1.0, 1.0).set_trans(Tween.TRANS_LINEAR)
 	await tween.finished

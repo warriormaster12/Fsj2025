@@ -502,7 +502,6 @@ Alexander Streng - Code
 Akseli Viitanen - Code"
 
 [node name="FadeInOutRect" type="ColorRect" parent="UIElements"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

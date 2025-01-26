@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://td0xanxl0224"]
+[gd_scene load_steps=8 format=3 uid="uid://dsavfbcj2u168"]
 
 [ext_resource type="Script" path="res://scripts/power_up_bubble.gd" id="1_0862s"]
 [ext_resource type="Shader" path="res://prefabs/bubble/bubble.gdshader" id="2_hpk22"]

@@ -13,6 +13,6 @@ func _ready() -> void:
 		PowerUpStateManager.PowerUpType.TIME_SLOWDOWN:
 			icon.texture = load("res://resources/images/textures/timebendboost_static.png")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	progress_bar.max_value = power_up.initial_duration
 	progress_bar.value = power_up.duration

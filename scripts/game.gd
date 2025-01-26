@@ -6,6 +6,7 @@ class_name Game
 @export var power_up_display: PackedScene = preload("res://prefabs/power_up_display/power_up_display.tscn")
 
 @onready var game_start: AudioStreamPlayer3D = $"../AudioManager/GameStart"
+@onready var game_over: AudioStreamPlayer3D = $"../AudioManager/GameOver"
 
 var timer_on: bool = false
 var timer: float = 0.0
@@ -120,6 +121,7 @@ func restart() -> void:
 
 func end() -> void:
 	bcg.stop()
+	game_over.play()
 	if timer > ScoreStorage.best_timer:
 		ScoreStorage.best_timer = timer
 		ScoreStorage.best_score = "Best time: %02d : %02d : %03d" % [minutes, seconds, mills]
@@ -139,8 +141,8 @@ func end() -> void:
 	power_up_state_manager.reset_power_ups()
 	for powerup in get_tree().get_nodes_in_group("powerups"):
 		powerup.queue_free()
-	for power_up_display: Control in current_power_ups.values():
-		power_up_display.queue_free()
+	for pwu: Control in current_power_ups.values():
+		pwu.queue_free()
 	current_power_ups.clear()
 
 func move_camera() -> void:
@@ -165,7 +167,7 @@ func _update_timer(delta: float) -> void:
 	var text: String = "Current time: %02d : %02d : %03d" % [minutes, seconds, mills]
 	timer_label.text = text
 
-func _on_bubble_bounce() -> void:
+func _on_bubble_bounce(_position: Vector3) -> void:
 	score += 1
 	score_label.text = "Score: " + str(score)
 

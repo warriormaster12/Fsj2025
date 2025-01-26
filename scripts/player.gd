@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if is_on_wall():
 		var normal: Vector3 = get_wall_normal()
-		if signf(-normal.x) == signf(velocity.x):
+		if abs(normal.x) > 0.001 && signf(-normal.x) == signf(velocity.x):
 			velocity.x = 0
-		if signf(-normal.z) == signf(velocity.z):
+		if abs(normal.z) > 0.001 && signf(-normal.z) == signf(velocity.z):
 			velocity.z = 0

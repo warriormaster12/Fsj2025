@@ -4,8 +4,6 @@ class_name PowerUpStateManager
 signal power_up_added(power_up: PowerUp);
 signal power_up_expire(power_up: PowerUp);
 
-@onready var PowerUpsLabel: Label = %PowerUpsLabel
-
 enum PowerUpType {
 	PLAYER_SPEEDUP,
 	TIME_SLOWDOWN,
@@ -28,14 +26,6 @@ var player_speed_multiplier: float = 1
 
 func reset_power_ups() -> void:
 	active_power_ups.clear()
-
-func _process(_delta: float) -> void:
-	var text: String = ""
-	for power_up in active_power_ups:
-		text += "{0} {1}s\n".format([power_up.type, power_up.duration])
-	text += "psm = {0}\n".format([player_speed_multiplier])
-	text += "gts = {0}\n".format([Engine.time_scale])
-	PowerUpsLabel.text = text
 
 func _physics_process(delta: float) -> void:
 	if Engine.time_scale < 0.01:

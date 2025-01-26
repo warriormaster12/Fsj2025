@@ -1,17 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://ce8vhhjp5lxhc"]
+[gd_scene load_steps=3 format=3 uid="uid://ce8vhhjp5lxhc"]
 
 [ext_resource type="Script" path="res://scripts/power_up_display.gd" id="1_bthmw"]
+[ext_resource type="Texture2D" uid="uid://vaqho6gerifp" path="res://resources/images/textures/timebendboost_static.png" id="2_dhmjc"]
 
 [node name="PowerUpDisplay" type="HBoxContainer"]
-offset_right = 213.0
-offset_bottom = 37.0
+custom_minimum_size = Vector2(0, 50)
+offset_right = 443.0
+offset_bottom = 83.0
 script = ExtResource("1_bthmw")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_dhmjc")
+expand_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
+size_flags_vertical = 4
 value = 50.0
 show_percentage = false

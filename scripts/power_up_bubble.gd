@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	var collision: KinematicCollision3D = get_last_slide_collision()
 	if collision:
 		if collision.get_collider().is_in_group("player"):
-			PUSM.activate_random_power_up(position)
+			PUSM.activate_random_power_up()
 			power_up_pickup.emit()
 			queue_free()
 		elif is_on_floor():

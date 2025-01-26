@@ -331,10 +331,10 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("1_onbhf")
 
 [node name="CameraRotate" type="Node3D" parent="MainMenu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6412, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.071, 0)
 
 [node name="Camera3D" type="Camera3D" parent="MainMenu/CameraRotate"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+transform = Transform3D(1, 0, 0, 0, 0.891007, 0.453991, 0, -0.453991, 0.891007, 0, 0, 4)
 fov = 76.0
 
 [node name="PowerUpStateManager" type="Node" parent="."]

@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 				time_scale *= 0.5
 	Engine.time_scale = time_scale
 
-func activate_random_power_up(pos: Vector3) -> void:
+func activate_random_power_up() -> void:
 	var type: PowerUpType = PowerUpType.values()[randi() % PowerUpType.size()]
 	if type == PowerUpType.BUBBLES:
 		for i in range(0, randi() % 5 + 1):

@@ -43,7 +43,8 @@ func start() -> void:
 	if !spawn_area:
 		push_error("No spawn area assigned")
 		return
-		
+	
+	spawn_area.game_active = true
 	%PowerUpStateManager.spawn_area = spawn_area
 
 	if player_scene:
@@ -82,6 +83,7 @@ func restart() -> void:
 	hud.visible = true
 	fail_container.visible = false
 	player.global_position = player_marker.global_position
+	spawn_area.game_active = true
 	spawn_area.spawn_bubble()
 
 func end() -> void:
@@ -97,6 +99,7 @@ func end() -> void:
 	if player:
 		player.velocity = Vector3.ZERO
 		player.process_mode = Node.PROCESS_MODE_DISABLED
+	spawn_area.game_active = false
 	%PowerUpStateManager.reset_power_ups()
 
 

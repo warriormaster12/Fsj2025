@@ -4,6 +4,8 @@ class_name SpawnArea
 const POWER_UP_INTERVAL_MIN: float = 5
 const POWER_UP_INTERVAL_MAX: float = 20
 
+var game_active: bool = false
+
 @export var spawn_objects: Array[PackedScene] = [
 	preload("res://prefabs/bubble/bubble.tscn"),
 	preload("res://prefabs/bubble/powerup.tscn"),
@@ -23,6 +25,8 @@ func _ready() -> void:
 				break
 
 func _process(delta: float) -> void:
+	if !game_active:
+		return
 	time_till_next_power_up -= delta
 	if time_till_next_power_up < 0:
 		spawn_power_up()

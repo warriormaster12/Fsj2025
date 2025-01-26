@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxq5msvlrp0tc"
-path.s3tc="res://.godot/imported/bub_eyes_idle_left.png-ff675287399e7f727921dc15ec334c42.s3tc.ctex"
+uid="uid://c8a1eoc1txxic"
+path.s3tc="res://.godot/imported/bub_body_all.png-10c7abe6d8d46cb611dcee9020c82c6b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/images/spritesheets/bub_eyes_idle_left.png"
-dest_files=["res://.godot/imported/bub_eyes_idle_left.png-ff675287399e7f727921dc15ec334c42.s3tc.ctex"]
+source_file="res://resources/images/spritesheets/bub_body_all.png"
+dest_files=["res://.godot/imported/bub_body_all.png-10c7abe6d8d46cb611dcee9020c82c6b.s3tc.ctex"]
 
 [params]
 

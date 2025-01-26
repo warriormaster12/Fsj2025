@@ -16,7 +16,7 @@ noise = SubResource("FastNoiseLite_pp36h")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cuo7y"]
 render_priority = 0
 shader = ExtResource("2_hpk22")
-shader_parameter/bubble_color = Color(0, 1, 0, 1)
+shader_parameter/bubble_color = Color(0.439216, 0.027451, 0.501961, 1)
 shader_parameter/height_multiplier = 0.05
 shader_parameter/noise_sample_size = 0.49
 shader_parameter/animation_speed = 0.4

@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name PlayerController
 
 var PUSM: PowerUpStateManager = null
 
@@ -13,6 +14,7 @@ const DASH_COUNT_MAX = 999999999
 
 var dash_count: int = DASH_COUNT_MAX
 var dash_recharge_cooldown: float = DASH_RECHARGE_TIME
+var direction: Vector3 = Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
 	if dash_count < DASH_COUNT_MAX:
@@ -22,10 +24,10 @@ func _physics_process(delta: float) -> void:
 			dash_recharge_cooldown = DASH_RECHARGE_TIME
 
 	var input_dir := Input.get_vector("move_l", "move_r", "move_u", "move_d")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	velocity.z = move_toward(velocity.z, 0, FRICTION * delta)
-	var speed_multiplier: float = PUSM.player_speed_multiplier
+	var speed_multiplier: float = PUSM.player_speed_multiplier if PUSM else 1.0
 	if Input.is_action_just_pressed("dash") && dash_count > 0:
 		velocity.x = direction.x * DASH_FORCE
 		velocity.z = direction.z * DASH_FORCE

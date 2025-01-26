@@ -2,7 +2,7 @@ extends Node3D
 class_name SpawnArea
 
 const POWER_UP_INTERVAL_MIN: float = 5
-const POWER_UP_INTERVAL_MAX: float = 20
+const POWER_UP_INTERVAL_MAX: float = 10
 
 var game_active: bool = false
 

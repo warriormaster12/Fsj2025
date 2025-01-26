@@ -1,6 +1,9 @@
 extends Node
 class_name PowerUpStateManager
 
+signal power_up_added(power_up: PowerUp);
+signal power_up_expire(power_up: PowerUp);
+
 @onready var PowerUpsLabel: Label = %PowerUpsLabel
 
 enum PowerUpType {
@@ -12,10 +15,12 @@ enum PowerUpType {
 class PowerUp:
 	var type: PowerUpType
 	var duration: float
+	var initial_duration: float
 
 	func _init(type_: PowerUpType, duration_: float) -> void:
 		type = type_
 		duration = duration_
+		initial_duration = duration_
 
 var spawn_area: SpawnArea = null
 var active_power_ups: Array[PowerUp] = []
@@ -44,6 +49,7 @@ func _physics_process(delta: float) -> void:
 		var power_up: PowerUp = active_power_ups[i]
 		power_up.duration -= delta
 		if power_up.duration < 0:
+			power_up_expire.emit(power_up)
 			active_power_ups.remove_at(i)
 			continue
 		match power_up.type:
@@ -59,5 +65,8 @@ func activate_random_power_up() -> void:
 		for i in range(0, randi() % 5 + 1):
 			spawn_area.spawn_bubble()
 			await get_tree().create_timer(0.5).timeout
-	active_power_ups.append(PowerUp.new(type, 10))
+	else:
+		var power_up: PowerUp = PowerUp.new(type, 10)
+		active_power_ups.append(power_up)
+		power_up_added.emit(power_up)
 	

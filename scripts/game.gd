@@ -3,6 +3,7 @@ class_name Game
 
 @export var player_scene: PackedScene = null
 @export var spawn_area: SpawnArea = null
+@export var power_up_display: PackedScene = preload("res://prefabs/power_up_display/power_up_display.tscn")
 
 var timer_on: bool = false
 var timer: float = 0.0
@@ -13,12 +14,15 @@ var minutes: float = 0.0
 var score: int = 0
 var got_highscore: bool = false
 
+@onready var power_up_state_manager: PowerUpStateManager = %PowerUpStateManager
+
 @onready var hud: Control = %HUD
 @onready var fail_container: Control = %FailContainer
 @onready var timer_label: Label = %TimerLabel
 @onready var best_time_label: Label = %BestTimeLabel
 @onready var score_label: Label = %ScoreLabel
 @onready var best_score_label: Label = %BestScoreLabel
+@onready var power_ups_container: VBoxContainer = %PowerUpsContainer
 
 @onready var camera_marker: Marker3D = %CameraPosition
 @onready var player_marker: Marker3D = %PlayerPosition
@@ -29,6 +33,7 @@ var got_highscore: bool = false
 
 @onready var world: Node3D = get_child(0)
 
+var current_power_ups: Dictionary = {}
 
 func _ready() -> void:
 	if !level_manager.main_menu:
@@ -37,6 +42,8 @@ func _ready() -> void:
 		hud.visible = false
 	
 	fail_container.visible = false
+	power_up_state_manager.power_up_added.connect(_on_power_up_added)
+	power_up_state_manager.power_up_expire.connect(_on_power_up_removed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -56,12 +63,12 @@ func start() -> void:
 		return
 	
 	spawn_area.game_active = true
-	%PowerUpStateManager.spawn_area = spawn_area
+	power_up_state_manager.spawn_area = spawn_area
 
 	if player_scene:
 		player = player_scene.instantiate()
 		player.process_mode = Node.PROCESS_MODE_DISABLED
-		player.PUSM = %PowerUpStateManager
+		player.PUSM = power_up_state_manager
 		world.add_child(player)
 		player.global_position = player_marker.global_position
 	else:
@@ -120,10 +127,12 @@ func end() -> void:
 		player.velocity = Vector3.ZERO
 		player.process_mode = Node.PROCESS_MODE_DISABLED
 	spawn_area.game_active = false
-	%PowerUpStateManager.reset_power_ups()
+	power_up_state_manager.reset_power_ups()
 	for powerup in get_tree().get_nodes_in_group("powerups"):
 		powerup.queue_free()
-
+	for power_up_display: Control in current_power_ups.values():
+		power_up_display.queue_free()
+	current_power_ups.clear()
 
 func move_camera() -> void:
 	camera.reparent(world)
@@ -150,3 +159,15 @@ func _update_timer(delta: float) -> void:
 func _on_bubble_bounce() -> void:
 	score += 1
 	score_label.text = "Score: " + str(score)
+
+func _on_power_up_added(power_up: PowerUpStateManager.PowerUp) -> void:
+	var spawn_instance: PowerUpDisplay = power_up_display.instantiate()
+	spawn_instance.power_up = power_up
+	power_ups_container.add_child.call_deferred(spawn_instance)
+	current_power_ups[power_up] = spawn_instance
+
+func _on_power_up_removed(power_up: PowerUpStateManager.PowerUp) -> void:
+	var display: PowerUpDisplay = current_power_ups.get(power_up)
+	if display:
+		display.queue_free()
+		current_power_ups.erase(power_up)

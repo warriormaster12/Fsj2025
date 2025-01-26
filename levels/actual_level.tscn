@@ -479,6 +479,28 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
 
+[node name="CreditsContainer" type="VBoxContainer" parent="UIElements/ThemeNode/MainMenuUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -307.0
+offset_right = 632.0
+offset_bottom = -20.0
+grow_vertical = 0
+alignment = 2
+
+[node name="Credits" type="Label" parent="UIElements/ThemeNode/MainMenuUI/CreditsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "Credits:
+Tom Ingvall - Graphics
+Anna Malassu - Audio
+Alexander Streng - Code
+Akseli Viitanen - Code"
+
 [node name="FadeInOutRect" type="ColorRect" parent="UIElements"]
 visible = false
 anchors_preset = 15

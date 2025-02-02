@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cv0wdnkoqoayq"
 path.s3tc="res://.godot/imported/bub_eyes_all.png-43f8efe3de7cf0b4ba7bedc6e9b45d49.s3tc.ctex"
+path.etc2="res://.godot/imported/bub_eyes_all.png-43f8efe3de7cf0b4ba7bedc6e9b45d49.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/images/spritesheets/bub_eyes_all.png"
-dest_files=["res://.godot/imported/bub_eyes_all.png-43f8efe3de7cf0b4ba7bedc6e9b45d49.s3tc.ctex"]
+dest_files=["res://.godot/imported/bub_eyes_all.png-43f8efe3de7cf0b4ba7bedc6e9b45d49.s3tc.ctex", "res://.godot/imported/bub_eyes_all.png-43f8efe3de7cf0b4ba7bedc6e9b45d49.etc2.ctex"]
 
 [params]
 

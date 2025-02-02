@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8a1eoc1txxic"
 path.s3tc="res://.godot/imported/bub_body_all.png-10c7abe6d8d46cb611dcee9020c82c6b.s3tc.ctex"
+path.etc2="res://.godot/imported/bub_body_all.png-10c7abe6d8d46cb611dcee9020c82c6b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/images/spritesheets/bub_body_all.png"
-dest_files=["res://.godot/imported/bub_body_all.png-10c7abe6d8d46cb611dcee9020c82c6b.s3tc.ctex"]
+dest_files=["res://.godot/imported/bub_body_all.png-10c7abe6d8d46cb611dcee9020c82c6b.s3tc.ctex", "res://.godot/imported/bub_body_all.png-10c7abe6d8d46cb611dcee9020c82c6b.etc2.ctex"]
 
 [params]
 

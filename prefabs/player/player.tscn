@@ -339,6 +339,8 @@ script = ExtResource("2_evcwn")
 [node name="Eyes" type="Sprite3D" parent="VisualContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0156569, 0)
 axis = 1
+shaded = true
+alpha_cut = 2
 texture_filter = 0
 texture = ExtResource("2_nldhq")
 hframes = 36
@@ -346,6 +348,8 @@ hframes = 36
 [node name="Body" type="Sprite3D" parent="VisualContainer"]
 flip_h = true
 axis = 1
+shaded = true
+alpha_cut = 2
 texture_filter = 0
 texture = ExtResource("2_bvn4q")
 hframes = 12

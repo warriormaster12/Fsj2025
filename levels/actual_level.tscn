@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://eidyg2m2qpb0"]
+[gd_scene load_steps=47 format=3 uid="uid://eidyg2m2qpb0"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_onbhf"]
 [ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_s7dc4"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/audio_manager.gd" id="9_5kvnm"]
 [ext_resource type="FontFile" uid="uid://dnqmabcw4y52w" path="res://resources/fonts/ari-w9500/ari-w9500-display.ttf" id="9_u3jex"]
 [ext_resource type="AudioStream" uid="uid://cs70mocqmwkg3" path="res://resources/audio/sfx/bounce.wav" id="10_el4yl"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://prefabs/joystick/virtual_joystick.tscn" id="10_o7o0l"]
 [ext_resource type="Texture2D" uid="uid://e0b0cxxgm4gg" path="res://resources/images/kenney_input-prompts-pixel-16/Tiles/tile_0253.png" id="10_so4hy"]
 [ext_resource type="Texture2D" uid="uid://bsfio1375bden" path="res://resources/images/kenney_input-prompts-pixel-16/Tiles/tile_0612.png" id="11_6qet0"]
 [ext_resource type="Script" path="res://scripts/fail_container_ui.gd" id="11_imjlh"]
@@ -276,6 +277,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Virtual Joystick" parent="UIElements/ThemeNode/HUD" instance=ExtResource("10_o7o0l")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.182
+anchor_top = 0.692
+anchor_right = 0.182
+anchor_bottom = 0.692
+offset_left = -255.44
+offset_top = -254.36
+offset_right = 254.56
+offset_bottom = 253.64
+visibility_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="UIElements/ThemeNode/HUD"]
 layout_mode = 1

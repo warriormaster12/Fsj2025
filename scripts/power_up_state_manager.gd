@@ -3,13 +3,14 @@ class_name PowerUpStateManager
 
 signal power_up_added(power_up: PowerUp);
 signal power_up_expire(power_up: PowerUp);
+signal power_up_special(type: PowerUpType);
 
 @onready var pickup_fx: AudioStreamPlayer3D = $"../AudioManager/PowerupPickup"
 @onready var expire_fx: AudioStreamPlayer3D = $"../AudioManager/PowerupExpire"
 @onready var bcg: AudioStreamPlayer3D = $"../AudioManager/BCG"
 
 enum PowerUpType {
-	PLAYER_SPEEDUP,
+	POINTS_MULTIPLIER,
 	TIME_SLOWDOWN,
 	BUBBLES,
 }
@@ -27,8 +28,10 @@ class PowerUp:
 var spawn_area: SpawnArea = null
 var active_power_ups: Array[PowerUp] = []
 var player_speed_multiplier: float = 1
+var points_multiplier: float = 1
 
 func reset_power_ups() -> void:
+	points_multiplier = 1
 	active_power_ups.clear()
 
 func _physics_process(delta: float) -> void:
@@ -38,7 +41,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		delta = delta / Engine.time_scale
 
-	player_speed_multiplier = 1
 	var time_scale: float = 1
 	for i in range(len(active_power_ups) -1, -1, -1):
 		var power_up: PowerUp = active_power_ups[i]
@@ -50,9 +52,6 @@ func _physics_process(delta: float) -> void:
 			active_power_ups.remove_at(i)
 			continue
 		match power_up.type:
-			PowerUpType.PLAYER_SPEEDUP:
-				player_speed_multiplier *= 1.5
-				bcg.pitch_scale = 1.1
 			PowerUpType.TIME_SLOWDOWN:
 				time_scale *= 0.5
 				bcg.pitch_scale = 0.9
@@ -65,6 +64,10 @@ func activate_random_power_up() -> void:
 		for i in range(0, randi() % 5 + 1):
 			spawn_area.spawn_bubble()
 			await get_tree().create_timer(0.5).timeout
+		power_up_special.emit(type)
+	elif type == PowerUpType.POINTS_MULTIPLIER:
+		points_multiplier += 1
+		power_up_special.emit(type)
 	else:
 		var power_up: PowerUp = PowerUp.new(type, 10)
 		active_power_ups.append(power_up)

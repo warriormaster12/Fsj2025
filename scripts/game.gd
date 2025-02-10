@@ -48,6 +48,7 @@ func _ready() -> void:
 	fail_container.visible = false
 	power_up_state_manager.power_up_added.connect(_on_power_up_added)
 	power_up_state_manager.power_up_expire.connect(_on_power_up_removed)
+	power_up_state_manager.power_up_special.connect(_on_power_up_special)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -89,7 +90,7 @@ func start() -> void:
 		best_time_label.text = "Best time: " + "00 : 00 : 000"
 	
 	best_score_label.text = "High-score: " + str(ScoreStorage.best_points)
-	score_label.text = "Score: 0"
+	update_score_label()
 
 	await move_camera()
 	if player: 
@@ -110,8 +111,8 @@ func restart() -> void:
 	else:
 		best_time_label.text = "Best time: " + "00 : 00 : 000"
 	best_score_label.text = "High-score: " + str(ScoreStorage.best_points)
-	score_label.text = "Score: 0"
 	score = 0
+	update_score_label()
 	timer_on = true
 	hud.visible = true
 	fail_container.visible = false
@@ -168,8 +169,8 @@ func _update_timer(delta: float) -> void:
 	timer_label.text = text
 
 func _on_bubble_bounce(_position: Vector3) -> void:
-	score += 1
-	score_label.text = "Score: " + str(score)
+	score += power_up_state_manager.points_multiplier
+	update_score_label()
 
 func _on_power_up_added(power_up: PowerUpStateManager.PowerUp) -> void:
 	var spawn_instance: PowerUpDisplay = power_up_display.instantiate()
@@ -182,3 +183,9 @@ func _on_power_up_removed(power_up: PowerUpStateManager.PowerUp) -> void:
 	if display:
 		display.queue_free()
 		current_power_ups.erase(power_up)
+
+func _on_power_up_special(power_up_type: PowerUpStateManager.PowerUpType) -> void:
+	update_score_label()
+
+func update_score_label() -> void:
+	score_label.text = "Score: %d (+ %d)" % [score, power_up_state_manager.points_multiplier]

@@ -8,8 +8,6 @@ var power_up: PowerUpStateManager.PowerUp = null
 
 func _ready() -> void:
 	match power_up.type:
-		PowerUpStateManager.PowerUpType.PLAYER_SPEEDUP:
-			icon.texture = load("res://resources/images/textures/speedboost_static.png")
 		PowerUpStateManager.PowerUpType.TIME_SLOWDOWN:
 			icon.texture = load("res://resources/images/textures/timebendboost_static.png")
 

@@ -480,6 +480,19 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
+[node name="Label" type="Label" parent="UIElements/ThemeNode/MainMenuUI/Instructions"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "The goal of the game is to keep the blue bubble(s) in the air for as long as possible.
+
+You can pickup purple bubbles for powerup such as slow down time, more bubbles and score multiplier."
+autowrap_mode = 2
+
+[node name="Spacer2" type="Control" parent="UIElements/ThemeNode/MainMenuUI/Instructions"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UIElements/ThemeNode/MainMenuUI/Instructions"]
 layout_mode = 2
 
